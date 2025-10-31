@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Егор Крид</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        :root {
+            --primary: #ff0000;
+            --secondary: #8b0000;
+            --accent: #ff4500;
+            --dark: #0d0000;
+            --light: #fff5f5;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-light: linear-gradient(135deg, var(--accent), var(--primary));
+            --card-bg: rgba(30, 0, 0, 0.7);
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Навигация */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(13, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 16px;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--primary);
+            z-index: 1001;
+        }
+
+        /* Главный баннер */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            background: linear-gradient(rgba(13, 0, 0, 0.7), rgba(13, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1571330735066-03aaa9429d89?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80') no-repeat center center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ff0000' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            line-height: 1.1;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 35px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+            font-size: 16px;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.6);
+            background: var(--gradient-light);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--light);
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        /* Секции */
+        section {
+            padding: 100px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+            font-size: 2.8rem;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+
+        /* Обо мне */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .about-img {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            border: 3px solid var(--primary);
+            position: relative;
+        }
+
+        .about-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #ccc;
+            margin-top: 5px;
+        }
+
+        /* Галерея */
+        .gallery {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 100px 5%;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            height: 280px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Музыка */
+        .music-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .music-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff0000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .music-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .yandex-music-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #ff0000;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+
+        .yandex-music-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+            background: #e60000;
+        }
+
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .music-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .music-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+
+        .music-img {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .music-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .music-card:hover .music-img img {
+            transform: scale(1.1);
+        }
+
+        .music-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 0, 0, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .music-card:hover .music-play {
+            opacity: 1;
+        }
+
+        .music-info {
+            padding: 25px;
+        }
+
+        .music-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .music-info p {
+            color: #ccc;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .music-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .music-date {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .music-listen {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .music-listen:hover {
+            color: var(--accent);
+        }
+
+        /* Концерты */
+        .concerts-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .concert-item {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .concert-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(10px);
+        }
+
+        .concert-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .concert-info p {
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concert-info i {
+            color: var(--primary);
+        }
+
+        /* Контакты */
+        .contact-content {
+            display: flex;
+            gap: 60px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 1.4rem;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .contact-details h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .contact-details p {
+            color: #ccc;
+        }
+
+        .contact-form {
+            flex: 1;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        /* Футер */
+        footer {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 60px 5% 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: var(--gradient);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+            background: var(--gradient-light);
+        }
+
+        .copyright {
+            color: #999;
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Анимации */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1100px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .about-content {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .about-content,
+            .contact-content {
+                flex-direction: column;
+            }
+
+            .about-img {
+                margin-bottom: 40px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .stats {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: var(--dark);
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding: 100px 40px;
+                transition: all 0.5s ease;
+                border-left: 1px solid rgba(255, 0, 0, 0.2);
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            nav ul li {
+                margin: 15px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .btn-group {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .music-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+
+            .concert-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .gallery-item {
+                height: 200px;
+            }
+            
+            .stats {
+                flex-wrap: wrap;
+            }
+            
+            .contact-form {
+                padding: 25px;
+            }
+            
+            .section-title {
+                font-size: 1.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <header>
+        <div class="logo">ЕГОР КРИД</div>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#about">О Егоре Криде</a></li>
+                <li><a href="#gallery">Галерея</a></li>
+                <li><a href="#music">Музыка</a></li>
+                <li><a href="#concerts">Концерты</a></li>
+                <li><a href="#contact">Напиши Егору тут</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Главный баннер -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>ЕГОР КРИД</h1>
+            <p>Российский певец, музыкант и автор песен. Один из самых популярных исполнителей в русскоязычном пространстве с миллионами поклонников по всему миру.</p>
+            <div class="btn-group">
+                <a href="https://music.yandex.ru/artist/796797" class="btn pulse"><i class="fas fa-play"></i> Слушать музыку</a>
+                <a href="https://egorkreed.com/concerts/?ysclid=mhf60v3pfj135352881" class="btn btn-outline"><i class="fas fa-ticket-alt"></i> Билеты на концерты</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Обо мне -->
+    <section id="about">
+        <h2 class="section-title">О Егоре Криде</h2>
+        <div class="about-content">
+            <div class="about-img fade-in">
+                <img src="pic/10" alt="Егор Крид">
+            </div>
+            <div class="about-text fade-in">
+                <h3>Биография</h3>
+                <p>Егор Крид (настоящее имя - Егор Николаевич Булаткин) - российский певец, рэпер и автор песен. Родился 25 июня 1992 года в Пензе.</p>
+                <p>Свою музыкальную карьеру начал в 2010 году, а широкую известность получил после выхода сингла "Самая самая" в 2012 году. С тех пор выпустил множество хитов, сотрудничал с ведущими российскими исполнителями и стал одним из самых коммерчески успешных артистов в России.</p>
+                <p>В 2020 году Егор Крид стал наставником в шоу "Голос" на Первом канале, что еще больше укрепило его популярность.</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Лет на сцене</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Хитов</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5M+</div>
+                        <div class="stat-label">Поклонников</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Галерея -->
+    <section class="gallery" id="gallery">
+        <h2 class="section-title">Галерея</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item fade-in">
+                <img src="pic/11" alt="Фото 1">
+                <div class="gallery-overlay">
+                    <h3>Голос Дети с Егором</h3>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="pic/13" alt="Фото 2">
+                <div class="gallery-overlay">
+                    <h3>Певец года ЖАРА</h3>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="pic/12" alt="Фото 3">
+                <div class="gallery-overlay">
+                    <h3>Лужники 2025</h3>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="pic/14" alt="Фото 4">
+                <div class="gallery-overlay">
+                    <h3>Бренд косметики ЕК</h3>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="pic/15" alt="Фото 5">
+                <div class="gallery-overlay">
+                    <h3>Мерч Егора</h3>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="pic/16" alt="Фото 6">
+                <div class="gallery-overlay">
+                    <h3>Фильм "ВНИЗ"</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Музыка -->
+    <section class="music-section" id="music">
+           <!-- Музыка -->
+    <section class="music-section" id="music">
+        <h2 class="section-title">Музыка</h2>
+        <div class="music-header">
+            <h3>Новые треки и альбомы</h3>
+            <a href="https://music.yandex.ru/artist/411449" class="yandex-music-btn" target="_blank">
+                <i class="fab fa-yandex"></i>
+                Слушать в Яндекс.Музыке
+            </a>
+        </div>
+        <div class="music-grid">
+            <div class="music-card fade-in">
+                <div class="music-img">
+                    <img src="pic/17" alt="PUSSY BOY">
+                    <div class="music-play">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="music-info">
+                    <h3>PUSSY BOY</h3>
+                    <p>Новый альбом с лучшими хитами 2021 года. Включает треки "Палево", "Мне нравится" и другие.</p>
+                    <div class="music-meta">
+                        <span class="music-date">2021 • Альбом</span>
+                        <a href="https://music.yandex.ru/album/16807332" class="music-listen" target="_blank">
+                            Слушать <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="music-card fade-in">
+                <div class="music-img">
+                    <img src="pic/18" alt="58">
+                    <div class="music-play">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="music-info">
+                    <h3>58</h3>
+                    <p>Культовый альбом 2018 года с хитами "Берегу", "Отпускаю" и "Миллион алых роз".</p>
+                    <div class="music-meta">
+                        <span class="music-date">2018 • Альбом</span>
+                        <a href="https://music.yandex.ru/album/10377767" class="music-listen" target="_blank">
+                            Слушать <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="music-card fade-in">
+                <div class="music-img">
+                    <img src="pic/19" alt="Холостяк">
+                    <div class="music-play">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="music-info">
+                    <h3>Холостяк</h3>
+                    <p>Один из самых популярных синглов 2019 года, покоривший чарты и сердца миллионов поклонников.</p>
+                    <div class="music-meta">
+                        <span class="music-date">2019 • Сингл</span>
+                        <a href="https://music.yandex.ru/album/2811785" class="music-listen" target="_blank">
+                            Слушать <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Популярные треки -->
+        <div class="popular-tracks">
+            <h3 class="subsection-title">Популярные треки</h3>
+            <div class="tracks-list">
+                <div class="track-item fade-in">
+                    <div class="track-number">1</div>
+                    <div class="track-info">
+                        <h4>Самая самая</h4>
+                        <p>3:45 • 125 млн прослушиваний</p>
+                    </div>
+                    <a href="https://music.yandex.ru/album/31600801/track/21863268" class="track-play" target="_blank">
+                        <i class="fas fa-play"></i>
+                    </a>
+                </div>
+                <div class="track-item fade-in">
+                    <div class="track-number">2</div>
+                    <div class="track-info">
+                        <h4>Невеста</h4>
+                        <p>3:22 • 98 млн прослушиваний</p>
+                    </div>
+                    <a href="https://music.yandex.ru/album/2811785/track/24183553" class="track-play" target="_blank">
+                        <i class="fas fa-play"></i>
+                    </a>
+                </div>
+                <div class="track-item fade-in">
+                    <div class="track-number">3</div>
+                    <div class="track-info">
+                        <h4>Гучи</h4>
+                        <p>3:15 • 87 млн прослушиваний</p>
+                    </div>
+                    <a href="https://music.yandex.ru/album/12592957/track/72897893" class="track-play" target="_blank">
+                        <i class="fas fa-play"></i>
+                    </a>
+                </div>
+                <div class="track-item fade-in">
+                    <div class="track-number">4</div>
+                    <div class="track-info">
+                        <h4>Мне нравится</h4>
+                        <p>3:38 • 76 млн прослушиваний</p>
+                    </div>
+                    <a href="https://music.yandex.ru/album/3579190/track/29714325" class="track-play" target="_blank">
+                        <i class="fas fa-play"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Концерты -->
+    <section id="concerts">
+        <h2 class="section-title">Концерты</h2>
+        <div class="concerts-list">
+            <div class="concert-item fade-in">
+                <div class="concert-info">
+                    <h3>Москва, СК "Олимпийский"</h3>
+                    <p><i class="fas fa-calendar-alt"></i> 15 ноября 2023 • <i class="fas fa-clock"></i> 20:00</p>
+                </div>
+                <div class="concert-date">
+                    <a href="https://egorkreedtour.ru/#tickets" class="btn">Купить билет</a>
+                </div>
+            </div>
+            <div class="concert-item fade-in">
+                <div class="concert-info">
+                    <h3>Санкт-Петербург, Ледовый дворец</h3>
+                    <p><i class="fas fa-calendar-alt"></i> 22 ноября 2023 • <i class="fas fa-clock"></i> 19:30</p>
+                </div>
+                <div class="concert-date">
+                    <a href="https://egorkreedtour.ru/#tickets" class="btn">Купить билет</a>
+                </div>
+            </div>
+            <div class="concert-item fade-in">
+                <div class="concert-info">
+                    <h3>Казань, Татнефть-Арена</h3>
+                    <p><i class="fas fa-calendar-alt"></i> 5 декабря 2023 • <i class="fas fa-clock"></i> 20:00</p>
+                </div>
+                <div class="concert-date">
+                    <a href="https://egorkreedtour.ru/#tickets" class="btn">Купить билет</a>
+                </div>
+            </div>
+            <div class="concert-item fade-in">
+                <div class="concert-info">
+                    <h3>Екатеринбург, ДИВС</h3>
+                    <p><i class="fas fa-calendar-alt"></i> 12 декабря 2023 • <i class="fas fa-clock"></i> 19:00</p>
+                </div>
+                <div class="concert-date">
+                    <a href="https://egorkreedtour.ru/#tickets" class="btn">Купить билет</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact">
+        <h2 class="section-title">Напиши Егору тут</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Адрес</h3>
+                        <p>Москва,Лужники</p>
+                    </div>
+                </div>
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Телефон</h3>
+                        <p>+7 (999) 998-88-99</p>
+                    </div>
+                </div>
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email</h3>
+                        <p>info@egorkreed.ru</p>
+                    </div>
+                </div>
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Яндекс.Музыка</h3>
+                        <p><a href="https://music.yandex.ru/artist/796797" style="color: var(--primary); text-decoration: none;">Страница артиста</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form fade-in">
+                <h3>Связаться с нами</h3>
+                <form>
+                    <div class="form-group">
+                        <input type="text" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Ваш email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Ваше сообщение" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Отправить сообщение</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">ЕГОР КРИД</div>
+            <div class="social-links">
+                <a href="https://vk.com/egorkreed"><i class="fab fa-vk"></i></a>
+                <a href="https://www.instagram.com/egorkreed?igsh=MW5lZThwdjQ0YnkwZQ=="><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com/@kreed?si=T3D46frjPrVbAXoU"><i class="fab fa-youtube"></i></a>
+                <a href="https://t.me/egorkreed"><i class="fab fa-telegram"></i></a>
+                <a href="https://music.yandex.ru/artist/411449" target="_blank"><i class="fab fa-yandex"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Егор Крид. Все права защищены.
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Закрытие меню при клике на ссылку
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Изменение хедера при скролле
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if(window.scrollY > 50) {
+                header.style.padding = '15px 5%';
+                header.style.background = 'rgba(13, 0, 0, 0.98)';
+            } else {
+                header.style.padding = '20px 5%';
+                header.style.background = 'rgba(13, 0, 0, 0.95)';
+            }
+        });
+
+        // Анимация появления элементов при скролле
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const appearOnScroll = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(element => {
+            appearOnScroll.observe(element);
+        });
+
+        // Добавляем стили для новых элементов
+        const style = document.createElement('style');
+        style.textContent = `
+            .popular-tracks {
+                margin-top: 80px;
+            }
+            
+            .subsection-title {
+                font-size: 2rem;
+                margin-bottom: 30px;
+                text-align: center;
+                color: var(--light);
+                font-weight: 600;
+            }
+            
+            .tracks-list {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            
+            .track-item {
+                display: flex;
+                align-items: center;
+                background: var(--card-bg);
+                border-radius: 15px;
+                padding: 20px;
+                margin-bottom: 15px;
+                transition: all 0.3s ease;
+                border-left: 3px solid var(--primary);
+            }
+            
+            .track-item:hover {
+                background: rgba(255, 255, 255, 0.08);
+                transform: translateX(10px);
+            }
+            
+            .track-number {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--primary);
+                margin-right: 20px;
+                min-width: 30px;
+            }
+            
+            .track-info {
+                flex: 1;
+            }
+            
+            .track-info h4 {
+                font-size: 1.2rem;
+                margin-bottom: 5px;
+                font-weight: 600;
+            }
+            
+            .track-info p {
+                color: #ccc;
+                font-size: 0.9rem;
+            }
+            
+            .track-play {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 45px;
+                height: 45px;
+                background: var(--gradient);
+                border-radius: 50%;
+                color: white;
+                text-decoration: none;
+                transition: all 0.3s ease;
+            }
+            
+            .track-play:hover {
+                transform: scale(1.1);
+                background: var(--gradient-light);
+            }
+            
+            @media (max-width: 768px) {
+                .track-item {
+                    padding: 15px;
+                }
+                
+                .track-number {
+                    font-size: 1.2rem;
+                    margin-right: 15px;
+                }
+                
+                .track-info h4 {
+                    font-size: 1.1rem;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
